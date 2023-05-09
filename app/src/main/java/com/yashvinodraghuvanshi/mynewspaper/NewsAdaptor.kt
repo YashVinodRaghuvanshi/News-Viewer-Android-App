@@ -6,13 +6,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class NewsAdaptor(val items : ArrayList<String>) : RecyclerView.Adapter<NewsAdaptor.ViewHolder>() {
+class NewsAdaptor(val items : ArrayList<String>, private val listner : NewsItemClick) : RecyclerView.Adapter<NewsAdaptor.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.news_item, parent, false)
-        return ViewHolder(view)
+        val viewHolder = ViewHolder(view)
+        view.setOnClickListener{
+            listner.onItemClicked(items[viewHolder.adapterPosition])
+
+        }
+        return viewHolder
 
     }
 
@@ -32,5 +37,9 @@ class NewsAdaptor(val items : ArrayList<String>) : RecyclerView.Adapter<NewsAdap
 
         val tv : TextView = itemView.findViewById(R.id.textViewList)
 
+    }
+
+    interface NewsItemClick{
+        fun onItemClicked(item : String)
     }
 }

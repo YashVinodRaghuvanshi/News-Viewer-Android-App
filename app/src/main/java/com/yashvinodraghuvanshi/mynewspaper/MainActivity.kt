@@ -3,12 +3,13 @@ package com.yashvinodraghuvanshi.mynewspaper
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yashvinodraghuvanshi.mynewspaper.databinding.ActivityMainBinding
 
 private lateinit var binding : ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NewsAdaptor.NewsItemClick {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         var items = loadItems()
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter : NewsAdaptor = NewsAdaptor(items)
+        val adapter : NewsAdaptor = NewsAdaptor(items ,this)
         binding.recyclerView.adapter = adapter
     }
 
@@ -28,5 +29,9 @@ class MainActivity : AppCompatActivity() {
             list.add("list number $x")
         }
         return list
+    }
+
+    override fun onItemClicked(item: String) {
+        Toast.makeText(this, "You clicked $item", Toast.LENGTH_LONG).show()
     }
 }
