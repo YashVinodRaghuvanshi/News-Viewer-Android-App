@@ -1,10 +1,10 @@
 package com.yashvinodraghuvanshi.mynewspaper
 
+import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), NewsAdaptor.NewsItemClick {
 
     private fun loadItems()
     {
-        val url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=06dcab140fdc46178eb5f3cf7c82bfaf"
+        val url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=06dcab140fdc46178eb5f3cf7c82bfaf"
         val jsonObjectRequest = object : JsonObjectRequest(
             Request.Method.GET,
             url,
@@ -76,7 +76,9 @@ class MainActivity : AppCompatActivity(), NewsAdaptor.NewsItemClick {
     }
 
     override fun onItemClicked(item: News) {
-        Toast.makeText(this, "You clicked $item", Toast.LENGTH_LONG).show()
+        val intent = CustomTabsIntent.Builder()
+            .build()
+        intent.launchUrl(this@MainActivity, Uri.parse(item.url))
     }
 
 

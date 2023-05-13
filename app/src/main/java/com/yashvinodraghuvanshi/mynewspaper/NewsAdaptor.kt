@@ -3,8 +3,10 @@ package com.yashvinodraghuvanshi.mynewspaper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class NewsAdaptor(private val listner : NewsItemClick) : RecyclerView.Adapter<NewsAdaptor.ViewHolder>() {
 
@@ -30,7 +32,8 @@ class NewsAdaptor(private val listner : NewsItemClick) : RecyclerView.Adapter<Ne
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.tv.text = items[position].title
-
+        holder.auther.text = items[position].author
+        Glide.with(holder.itemView.context).load(items[position].imageUrl).into(holder.pic)
 
     }
 
@@ -45,6 +48,8 @@ class NewsAdaptor(private val listner : NewsItemClick) : RecyclerView.Adapter<Ne
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
         val tv : TextView = itemView.findViewById(R.id.textViewList)
+        val auther : TextView = itemView.findViewById(R.id.author)
+        val pic : ImageView = itemView.findViewById(R.id.img)
 
     }
 
